@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import mixins
 from rest_framework import permissions
 from rest_framework import viewsets
 
@@ -10,19 +11,31 @@ def home(request):
     return render(request, 'home.html')
 
 
-class ArtistViewSet(viewsets.ModelViewSet):
+class ArtistViewSet(mixins.CreateModelMixin,
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.ListModelMixin,
+                    viewsets.GenericViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-class AlbumViewSet(viewsets.ModelViewSet):
+class AlbumViewSet(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.ListModelMixin,
+                   viewsets.GenericViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-class SongViewSet(viewsets.ModelViewSet):
+class SongViewSet(mixins.CreateModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.ListModelMixin,
+                  viewsets.GenericViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
