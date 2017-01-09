@@ -64,7 +64,8 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
         if 'name' in validated_data:
             validated_data['slug'] = slugify(validated_data['title'])
         instance = super(SongSerializer, self).update(instance, validated_data)
-        # instance.create_revision(lyrics, editor)
+        if lyrics != instance.lyrics:
+            instance.create_revision(lyrics, editor)
         return instance
 
 
