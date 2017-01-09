@@ -10,4 +10,19 @@
     {% empty %}
         <p>No albums found.</p>
     {% endfor %}
+    <button id="open-dialog" type="submit" class="btn btn-primary">
+        {% bootstrap_icon "plus" %}Add album
+    </button>
+    <div id="dialog">
+    <form action="{% url 'album-list' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button id="submit" type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+        </button>
+    </form>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="/static/js/dialog.js"></script>
 {% endblock %}

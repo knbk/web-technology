@@ -42,6 +42,11 @@ class ArtistDetailView(DetailView):
     model = Artist
     queryset = Artist.objects.prefetch_related('albums')
 
+    def get_context_data(self, **kwargs):
+        context = super(ArtistDetailView, self).get_context_data(**kwargs)
+        context['form'] = AlbumForm(initial={'artist': self.object.pk})
+        return context
+
 
 class AlbumDetailView(DetailView):
     model = Album

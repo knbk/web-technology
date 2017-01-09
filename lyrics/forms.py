@@ -13,6 +13,9 @@ class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         fields = ('artist', 'title')
+        widgets = {
+            'artist': forms.HiddenInput(),
+        }
 
 
 class SongForm(forms.ModelForm):
