@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.db import transaction
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 
 class NaturalKeyManager(models.Manager):
@@ -15,6 +16,7 @@ class NaturalKeyManager(models.Manager):
         return self.get(**{self.field: key})
 
 
+@python_2_unicode_compatible
 class Artist(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -22,7 +24,11 @@ class Artist(models.Model):
 
     objects = NaturalKeyManager('slug')
 
+    def __str__(self):
+        return self.name
 
+
+@python_2_unicode_compatible
 class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.PROTECT, related_name='albums')
     title = models.CharField(max_length=255)
@@ -30,7 +36,11 @@ class Album(models.Model):
 
     objects = NaturalKeyManager('slug')
 
+    def __str__(self):
+        return self.title
 
+
+@python_2_unicode_compatible
 class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.PROTECT, related_name='songs')
     title = models.CharField(max_length=255)
@@ -55,7 +65,11 @@ class Song(models.Model):
 
     objects = NaturalKeyManager('slug')
 
+    def __str__(self):
+        return self.title
 
+
+@python_2_unicode_compatible
 class LyricRevision(models.Model):
     song = models.ForeignKey(Song, on_delete=models.PROTECT, related_name='revisions')
     previous = models.OneToOneField('self', on_delete=models.PROTECT, related_name='next', null=True)
@@ -64,3 +78,6 @@ class LyricRevision(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     lyrics = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.song.title
