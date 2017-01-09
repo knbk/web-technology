@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_docs',
+    'bootstrap3',
 
     'accounts.apps.AccountsConfig',
     'lyrics.apps.LyricsConfig',
