@@ -44,7 +44,7 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
     revisions = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='lyricrevision-detail')
-    lyrics = serializers.CharField(source='lyrics', style={'base_template': 'textarea.html'})
+    lyrics = serializers.CharField(style={'base_template': 'textarea.html'})
 
     class Meta:
         model = Song
