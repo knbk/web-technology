@@ -59,6 +59,7 @@ class AlbumDetailView(DetailView):
         context['form'] = SongForm(initial={
             'album': reverse('album-detail', request=self.request, kwargs={'pk': self.object.pk})
         })
+        return context
 
 
 class SongDetailView(DetailView):
