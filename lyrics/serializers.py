@@ -5,9 +5,11 @@ from lyrics.models import Artist, Album, Song, LyricRevision
 
 
 class ArtistSerializer(serializers.ModelSerializer):
+    slug = serializers.ReadOnlyField()
+
     class Meta:
         model = Artist
-        fields = ('id', 'name', 'bio')
+        fields = ('id', 'name', 'slug', 'bio')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['name'])
@@ -20,9 +22,11 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
+    slug = serializers.ReadOnlyField()
+
     class Meta:
         model = Album
-        fields = ('id', 'title', 'artist')
+        fields = ('id', 'title', 'slug', 'artist')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['title'])
@@ -35,9 +39,11 @@ class AlbumSerializer(serializers.ModelSerializer):
 
 
 class SongSerializer(serializers.ModelSerializer):
+    slug = serializers.ReadOnlyField()
+
     class Meta:
         model = Song
-        fields = ('id', 'title', 'album')
+        fields = ('id', 'title', 'slug', 'album')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['title'])
