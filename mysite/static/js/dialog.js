@@ -15,9 +15,9 @@ $(document).ready(function() {
             dataType: "json",
             success: function(response) {
                 console.log(response);
+                location.reload();
             }
         });
         e.preventDefault();
-        location.reload();
     })
 });
