@@ -6,6 +6,8 @@ $(document).ready(function() {
         $("#dialog").dialog("open");
     });
     $('#submit').on("click", function(e) {
-        data = $('#dialog').find('form');
+        var data = $('#dialog').find('form').serialize();
+        var json = JSON.stringify(data);
+        console.log(json);
     })
 });
