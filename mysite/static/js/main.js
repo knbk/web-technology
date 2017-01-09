@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
     $('#download').click(function() {
         var spinner = $('#download-spinner');
         if (spinner.is(':visible')) {
-            // We're alraedy fetching the response...
+            // We're already fetching the response...
             return;
         }
         var url = window.location.href;

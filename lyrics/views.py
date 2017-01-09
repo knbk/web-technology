@@ -1,5 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render
+from django.views.generic import DetailView
+from django.views.generic import ListView
 from rest_framework import mixins
 from rest_framework import permissions
 from rest_framework import viewsets
@@ -24,6 +26,42 @@ def api_root(request, format=None):
         'revisions': reverse('lyricrevision-list', request=request, format=format),
         'search': reverse('song-search', request=request, format=format),
     })
+
+
+class ArtistListView(ListView):
+    model = Artist
+
+
+class ArtistDetailView(DetailView):
+    model = Artist
+    queryset = Artist.objects.prefetch_related('albums')
+
+
+class AlbumDetailView(DetailView):
+    model = Album
+    queryset = Album.objects.prefetch_related('songs')
+
+
+class SongDetailView(DetailView):
+    model = Song
+
+
+class SearchView(ListView):
+    model = Song
+
+    def get_queryset(self):
+        query = self.request.GET.get('query', '')
+        if not query:
+            queryset = Song.objects.none()
+        else:
+            parts = query.split(' ')
+            q = Q()
+            for part in parts:
+                q = q & (Q(title__icontains=part) | Q(album__title__icontains=part)
+                         | Q(album__artist__name__icontains=part))
+            queryset = Song.objects.filter(q)
+
+        return queryset
 
 
 class ArtistViewSet(mixins.CreateModelMixin,
