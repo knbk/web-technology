@@ -64,6 +64,11 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a id="clear-cache" href="#">Clear cache</a></li>
+                {% if user.is_authenticated %}
+                    <li><a id="logout" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a id="login" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
     </div>

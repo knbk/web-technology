@@ -3,7 +3,7 @@
     <h1>Browse artists:</h1>
     {% for artist in object_list %}
         <div class="artist">
-            <h3><a href="{% url 'artist-detail' artist.pk %}">{{ artist.name }}</a></h3>
+            <h3><a href="{% url 'lyrics:artist-detail' artist.pk %}">{{ artist.name }}</a></h3>
         </div>
     {% empty %}
         <p>No artists found.</p>

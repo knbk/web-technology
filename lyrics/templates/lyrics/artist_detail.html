@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ artist.name }}</h1>
+    <h3>Albums:</h3>
+    {% for album in object_list %}
+        <div class="artist">
+            <h3><a href="{% url 'lyrics:album-detail' album.pk %}">{{ album.title }}</a></h3>
+        </div>
+    {% empty %}
+        <p>No albums found.</p>
+    {% endfor %}
+{% endblock %}
