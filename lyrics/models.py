@@ -47,6 +47,11 @@ class Song(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
 
+    @property
+    def lyrics(self):
+        revision = self.get_current_revision()
+        return revision.lyrics if revision else ''
+
     def create_revision(self, lyrics, editor=None):
         with transaction.atomic():
             # Acquire lock and add new revision to tail of linked list

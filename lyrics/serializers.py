@@ -44,20 +44,29 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
     revisions = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='lyricrevision-detail')
-    lyrics = serializers.ReadOnlyField(source='get_current_revision.lyrics')
+    lyrics = serializers.CharField(source='get_current_revision.lyrics', style={'base_template': 'textarea.html'})
 
     class Meta:
         model = Song
         fields = ('url', 'id', 'title', 'slug', 'album', 'lyrics', 'revisions')
 
     def create(self, validated_data):
+        lyrics = validated_data.pop('lyrics', '')
+        editor = validated_data.pop('editor', None)
         validated_data['slug'] = slugify(validated_data['title'])
-        return super(SongSerializer, self).create(validated_data)
+        instance = super(SongSerializer, self).create(validated_data)
+        instance.create_revision(lyrics, editor)
+        return instance
 
     def update(self, instance, validated_data):
+        lyrics = validated_data.pop('lyrics', instance.lyrics)
+        editor = validated_data.pop('editor', None)
         if 'name' in validated_data:
             validated_data['slug'] = slugify(validated_data['title'])
-        return super(SongSerializer, self).update(instance, validated_data)
+        instance = super(SongSerializer, self).update(instance, validated_data)
+        if lyrics != instance.lyrics:
+            instance.create_revision(lyrics, editor)
+        return instance
 
 
 class LyricSerializer(serializers.HyperlinkedModelSerializer):
