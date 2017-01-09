@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>{{ artist.name }}</h1>
+    <div class="bio">{{ artist.bio|linebreaks }}</div>
     <h3>Albums:</h3>
     {% for album in artist.albums.all %}
         <div class="artist">
