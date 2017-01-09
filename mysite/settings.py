@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_docs',
+    'rest_framework_swagger',
 
     'accounts.apps.AccountsConfig',
     'lyrics.apps.LyricsConfig',

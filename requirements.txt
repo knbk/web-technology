@@ -5,3 +5,4 @@ psycopg2==2.6.2
 whitenoise==3.2.3
 djangorestframework==3.5.3
 drfdocs==0.0.11
+django-rest-swagger==2.1.1
