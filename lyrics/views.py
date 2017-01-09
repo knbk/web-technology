@@ -44,13 +44,21 @@ class ArtistDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArtistDetailView, self).get_context_data(**kwargs)
-        context['form'] = AlbumForm(initial={'artist': reverse('artist-detail', request=self.request, kwargs={'pk': self.object.pk})})
+        context['form'] = AlbumForm(initial={
+            'artist': reverse('artist-detail', request=self.request, kwargs={'pk': self.object.pk})
+        })
         return context
 
 
 class AlbumDetailView(DetailView):
     model = Album
     queryset = Album.objects.prefetch_related('songs')
+
+    def get_context_data(self, **kwargs):
+        context = super(AlbumDetailView, self).get_context_data(**kwargs)
+        context['form'] = SongForm(initial={
+            'album': reverse('album-detail', request=self.request, kwargs={'pk': self.object.pk})
+        })
 
 
 class SongDetailView(DetailView):

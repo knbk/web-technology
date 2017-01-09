@@ -19,6 +19,11 @@ class AlbumForm(forms.ModelForm):
 
 
 class SongForm(forms.ModelForm):
+    lyrics = forms.Textarea()
+
     class Meta:
         model = Song
         fields = ('album', 'title')
+        widgets = {
+            'album': forms.HiddenInput(),
+        }
