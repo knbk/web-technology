@@ -7,8 +7,18 @@ $(document).ready(function() {
     });
     $('#submit').on("click", function(e) {
         var data = {};
-        $("#dialog").find('form').serializeArray().map(function(x){data[x.name] = x.value;});
+        var form = $('#dialog').find('form');
+        form.serializeArray().map(function(x){data[x.name] = x.value;});
         var json = JSON.stringify(data);
-        console.log(json);
+        var url = form.attr('action');
+        $.post({
+            url: url,
+            data: json,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+            }
+        });
+        e.preventDefault();
     })
 });
