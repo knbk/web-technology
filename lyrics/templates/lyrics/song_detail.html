@@ -9,7 +9,7 @@
         {% bootstrap_icon "plus" %}Edit lyrics
     </button>
     <div id="dialog">
-    <form action="{% url 'song-detail' pk=song.pk %}" method="post">
+    <form action="{% url 'song-detail' pk=song.pk %}" method="put">
         {% csrf_token %}
         {% bootstrap_form form %}
         <button id="submit" type="submit" class="btn btn-primary">

@@ -9,7 +9,9 @@ $(document).ready(function() {
         var form = $('#dialog').find('form');
         var data = form.serialize();
         var url = form.attr('action');
-        $.post({
+        var method = form.attr('method');
+        $.ajax({
+            method: method,
             url: url,
             data: data,
             dataType: "json",
