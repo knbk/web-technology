@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ song.title }} - {{ song.album.artist.name }}</h1>
+    <div>
+    {{ song.lyrics|linebreaks }}
+    </div>
+{% endblock %}
