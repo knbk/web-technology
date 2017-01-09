@@ -62,8 +62,8 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
 class LyricSerializer(serializers.HyperlinkedModelSerializer):
     created_at = serializers.ReadOnlyField(default=serializers.CreateOnlyDefault(timezone.now))
     editor = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-    previous = serializers.HyperlinkedRelatedField(read_only=True)
-    next = serializers.HyperlinkedRelatedField(read_only=True)
+    previous = serializers.HyperlinkedRelatedField(read_only=True, view_name='lyricrevision-detail')
+    next = serializers.HyperlinkedRelatedField(read_only=True, view_name='lyricrevision-detail')
 
     class Meta:
         model = LyricRevision
