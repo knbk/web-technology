@@ -51,22 +51,17 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'title', 'slug', 'album', 'lyrics', 'revisions')
 
     def create(self, validated_data):
-        lyrics = validated_data.pop('lyrics', '')
         editor = validated_data.pop('editor', None)
+        lyrics = validated_data.pop('lyrics', '')
         validated_data['slug'] = slugify(validated_data['title'])
         instance = super(SongSerializer, self).create(validated_data)
         instance.create_revision(lyrics, editor)
         return instance
 
     def update(self, instance, validated_data):
-        lyrics = validated_data.pop('lyrics', instance.lyrics)
-        editor = validated_data.pop('editor', None)
         if 'name' in validated_data:
             validated_data['slug'] = slugify(validated_data['title'])
-        instance = super(SongSerializer, self).update(instance, validated_data)
-        if lyrics != instance.lyrics:
-            instance.create_revision(lyrics, editor)
-        return instance
+        return super(SongSerializer, self).update(instance, validated_data)
 
 
 class LyricSerializer(serializers.HyperlinkedModelSerializer):
