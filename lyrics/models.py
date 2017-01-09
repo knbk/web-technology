@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db import transaction
 from django.utils import timezone
@@ -49,7 +50,10 @@ class Song(models.Model):
     def create_revision(self, lyrics, editor=None):
         with transaction.atomic():
             # Acquire lock and add new revision to tail of linked list
-            tail = self.revisions.select_for_update().get(next=None)
+            try:
+                tail = self.revisions.select_for_update().get(next=None)
+            except ObjectDoesNotExist:
+                tail = None
             revision = self.revisions.create(song=self, lyrics=lyrics, editor=editor, previous=tail)
         return revision
 
@@ -61,7 +65,10 @@ class Song(models.Model):
             raise ValueError('')
 
     def get_current_revision(self):
-        return self.revisions.get(next=None)
+        try:
+            return self.revisions.get(next=None)
+        except ObjectDoesNotExist:
+            return None
 
     objects = NaturalKeyManager('slug')
 

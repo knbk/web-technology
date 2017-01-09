@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.utils.text import slugify
 
 from rest_framework import serializers
@@ -55,3 +56,22 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
         if 'name' in validated_data:
             validated_data['slug'] = slugify(validated_data['title'])
         return super(SongSerializer, self).update(instance, validated_data)
+
+
+class LyricSerializer(serializers.HyperlinkedModelSerializer):
+    created_at = serializers.ReadOnlyField(default=serializers.CreateOnlyDefault(timezone.now))
+    editor = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = LyricRevision
+        fields = ('url', 'id', 'song', 'lyrics', 'created_at', 'editor')
+
+    def create(self, validated_data):
+        song = Song.objects.get(pk=validated_data['song'])
+        revision = song.create_revision(validated_data['lyrics'], validated_data['editor'])
+        return revision
+
+    def update(self, instance, validated_data):
+        song = instance.song
+        revision = song.create_revision(validated_data['lyrics'], validated_data['editor'])
+        return revision
