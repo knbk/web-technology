@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+    <h1>Browse artists:</h1>
     {% for artist in artists %}
         <div class="artist">
             <h3><a href="{% url 'artist-detail' artist.pk %}">{{ artist.name }}</a></h3>
         </div>
+    {% empty %}
+        <p>No artists found.</p>
     {% endfor %}
 {% endblock %}
