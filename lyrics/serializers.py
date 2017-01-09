@@ -67,7 +67,7 @@ class LyricSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'song', 'lyrics', 'created_at', 'editor')
 
     def create(self, validated_data):
-        song = Song.objects.get(pk=validated_data['song'])
+        song = validated_data['song']
         revision = song.create_revision(validated_data['lyrics'], validated_data['editor'])
         return revision
 
