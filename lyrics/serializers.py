@@ -44,7 +44,7 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
     revisions = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='lyricrevision-detail')
-    lyrics = serializers.CharField(source='get_current_revision.lyrics', style={'base_template': 'textarea.html'})
+    lyrics = serializers.CharField(source='lyrics', style={'base_template': 'textarea.html'})
 
     class Meta:
         model = Song
@@ -59,9 +59,13 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
         return instance
 
     def update(self, instance, validated_data):
+        editor = validated_data.pop('editor', None)
+        lyrics = validated_data.pop('lyrics', instance.lyrics)
         if 'name' in validated_data:
             validated_data['slug'] = slugify(validated_data['title'])
-        return super(SongSerializer, self).update(instance, validated_data)
+        instance = super(SongSerializer, self).update(instance, validated_data)
+        # instance.create_revision(lyrics, editor)
+        return instance
 
 
 class LyricSerializer(serializers.HyperlinkedModelSerializer):
