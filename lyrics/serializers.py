@@ -48,7 +48,7 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Song
-        fields = ('url', 'id', 'title', 'slug', 'album', 'revisions')
+        fields = ('url', 'id', 'title', 'slug', 'album', 'lyrics', 'revisions')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['title'])
