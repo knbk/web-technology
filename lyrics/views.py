@@ -44,7 +44,7 @@ class ArtistDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArtistDetailView, self).get_context_data(**kwargs)
-        context['form'] = AlbumForm(initial={'artist': self.object.pk})
+        context['form'] = AlbumForm(initial={'artist': reverse('artist-detail', request=self.request, kwargs={'pk': self.object.pk})})
         return context
 
 
