@@ -4,7 +4,7 @@ from rest_framework import serializers
 from lyrics.models import Artist, Album, Song, LyricRevision
 
 
-class ArtistSerializer(serializers.ModelSerializer):
+class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
 
     class Meta:
@@ -21,7 +21,7 @@ class ArtistSerializer(serializers.ModelSerializer):
         return super(ArtistSerializer, self).update(instance, validated_data)
 
 
-class AlbumSerializer(serializers.ModelSerializer):
+class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
 
     class Meta:
@@ -38,7 +38,7 @@ class AlbumSerializer(serializers.ModelSerializer):
         return super(AlbumSerializer, self).update(instance, validated_data)
 
 
-class SongSerializer(serializers.ModelSerializer):
+class SongSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
 
     class Meta:
