@@ -8,7 +8,6 @@ router.register('artists', ArtistViewSet)
 router.register('albums', AlbumViewSet)
 router.register('songs', SongViewSet)
 
-app_name = 'api'
 urlpatterns = [
     url(r'', include(router.urls)),
 ]
