@@ -8,7 +8,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 class NaturalKeyManager(models.Manager):
-    def __init__(self, field, *args, **kwargs):
+    def __init__(self, field='slug', *args, **kwargs):
         super(NaturalKeyManager, self).__init__(*args, **kwargs)
         self.field = field
 
