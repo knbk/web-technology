@@ -40,6 +40,12 @@ class SongViewSet(mixins.CreateModelMixin,
     serializer_class = SongSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    def perform_create(self, serializer):
+        serializer.save(editor=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(editor=self.request.user)
+
 
 class LyricViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
