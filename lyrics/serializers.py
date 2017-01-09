@@ -9,7 +9,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Artist
-        fields = ('id', 'name', 'slug', 'bio')
+        fields = ('url', 'id', 'name', 'slug', 'bio')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['name'])
@@ -26,7 +26,7 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Album
-        fields = ('id', 'title', 'slug', 'artist')
+        fields = ('url', 'id', 'title', 'slug', 'artist')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['title'])
@@ -43,7 +43,7 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Song
-        fields = ('id', 'title', 'slug', 'album')
+        fields = ('url', 'id', 'title', 'slug', 'album')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['title'])
