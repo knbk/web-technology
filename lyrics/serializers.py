@@ -78,13 +78,3 @@ class LyricSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LyricRevision
         fields = ('url', 'id', 'song', 'lyrics', 'previous', 'next', 'created_at', 'editor')
-
-    def create(self, validated_data):
-        song = validated_data['song']
-        revision = song.create_revision(validated_data['lyrics'], validated_data['editor'])
-        return revision
-
-    def update(self, instance, validated_data):
-        song = instance.song
-        revision = song.create_revision(validated_data['lyrics'], validated_data['editor'])
-        return revision

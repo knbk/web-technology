@@ -47,17 +47,6 @@ class SongViewSet(mixins.CreateModelMixin,
         serializer.save(editor=self.request.user)
 
 
-class LyricViewSet(mixins.CreateModelMixin,
-                   mixins.RetrieveModelMixin,
-                   mixins.UpdateModelMixin,
-                   mixins.ListModelMixin,
-                   viewsets.GenericViewSet):
+class LyricViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = LyricRevision.objects.all()
     serializer_class = LyricSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def perform_create(self, serializer):
-        serializer.save(editor=self.request.user)
-
-    def perform_update(self, serializer):
-        serializer.save(editor=self.request.user)
