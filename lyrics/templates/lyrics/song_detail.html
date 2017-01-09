@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 {% block content %}
     <h1>{{ song.title }} - {{ song.album.artist.name }}</h1>
     <div>
     {{ song.lyrics|linebreaks }}
     </div>
+    <button id="open-dialog" type="submit" class="btn btn-primary">
+        {% bootstrap_icon "plus" %}Edit lyrics
+    </button>
+    <div id="dialog">
+    <form action="{% url 'song-detail' pk=song.pk %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button id="submit" type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+        </button>
+    </form>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="/static/js/dialog.js"></script>
 {% endblock %}

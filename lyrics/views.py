@@ -65,6 +65,13 @@ class AlbumDetailView(DetailView):
 class SongDetailView(DetailView):
     model = Song
 
+    def get_context_data(self, **kwargs):
+        context = super(SongDetailView, self).get_context_data(**kwargs)
+        context['form'] = SongForm(instance=self.object, initial={
+            'lyrics': self.object.lyrics,
+        })
+        return context
+
 
 class SearchView(ListView):
     model = Song
