@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import home
+from lyrics.views import home
 
 
 app_name = 'lyrics'
