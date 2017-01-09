@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 {% block content %}
     <h1>Browse artists:</h1>
     {% for artist in object_list %}
@@ -8,4 +9,18 @@
     {% empty %}
         <p>No artists found.</p>
     {% endfor %}
+    <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "plus" %}Add artist
+    </button>
+    <div id="dialog">
+    <form action="{% url 'artist-list' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+        </button>
+    </form>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
 {% endblock %}

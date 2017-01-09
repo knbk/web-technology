@@ -9,6 +9,7 @@ from rest_framework.decorators import list_route, api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+from lyrics.forms import ArtistForm, AlbumForm, SongForm
 from lyrics.models import Artist, Album, Song, LyricRevision
 from lyrics.serializers import ArtistSerializer, AlbumSerializer, SongSerializer, LyricSerializer
 
@@ -30,6 +31,11 @@ def api_root(request, format=None):
 
 class ArtistListView(ListView):
     model = Artist
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtistListView, self).get_context_data(**kwargs)
+        context['form'] = ArtistForm()
+        return context
 
 
 class ArtistDetailView(DetailView):
