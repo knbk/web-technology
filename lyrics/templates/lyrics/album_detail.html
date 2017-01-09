@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ album.title }} - {{ album.artist.name }}</h1>
+    <h3>Songs:</h3>
+    {% for song in album.songs.all %}
+        <div class="song">
+            <h3><a href="{% url 'lyrics:song-detail' song.pk %}">{{ song.title }}</a></h3>
+        </div>
+    {% empty %}
+        <p>No songs found.</p>
+    {% endfor %}
+{% endblock %}

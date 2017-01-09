@@ -2,7 +2,7 @@
 {% block content %}
     <h1>{{ artist.name }}</h1>
     <h3>Albums:</h3>
-    {% for album in object_list %}
+    {% for album in artist.albums.all %}
         <div class="artist">
             <h3><a href="{% url 'lyrics:album-detail' album.pk %}">{{ album.title }}</a></h3>
         </div>
