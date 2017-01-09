@@ -1,0 +1,40 @@
+body {
+    /*min-height: 2000px;*/
+    padding-top: 70px;
+    background-color: #749CCC;
+}
+
+.navbar {
+    background-color: #F0F0F0;
+}
+
+.navbar-brand {
+    padding: 0px;
+}
+
+.navbar-brand>img {
+    height: 100%;
+    width: auto;
+}
+
+.navbar-brand>p {
+    padding: 15px;
+}
+
+.spinner {
+    background:url(/static/img/ajax-loader.gif) no-repeat center center;
+    width:63px;
+    height:63px;
+}
+
+#download:hover {
+    color: #5cb85c;
+}
+
+#download.saved {
+    color: #5cb85c;
+}
+
+#download.saved:hover {
+    color: #c9302c;
+}
