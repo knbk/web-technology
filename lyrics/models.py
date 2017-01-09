@@ -50,10 +50,7 @@ class Song(models.Model):
     def create_revision(self, lyrics, editor=None):
         with transaction.atomic():
             # Acquire lock and add new revision to tail of linked list
-            try:
-                tail = LyricRevision.objects.select_for_update().get(song=self, next=None)
-            except ObjectDoesNotExist:
-                tail = None
+            tail = self.get_current_revision()
             revision = self.revisions.create(song=self, lyrics=lyrics, editor=editor, previous=tail)
         return revision
 
