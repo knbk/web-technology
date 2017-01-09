@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Browse artists:</h1>
-    {% for artist in artists %}
+    {% for artist in object_list %}
         <div class="artist">
             <h3><a href="{% url 'artist-detail' artist.pk %}">{{ artist.name }}</a></h3>
         </div>
