@@ -9,14 +9,14 @@
     {% empty %}
         <p>No artists found.</p>
     {% endfor %}
-    <button type="submit" class="btn btn-primary">
+    <button id="open-dialog" type="submit" class="btn btn-primary">
         {% bootstrap_icon "plus" %}Add artist
     </button>
     <div id="dialog">
     <form action="{% url 'artist-list' %}" method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">
+        <button id="submit" type="submit" class="btn btn-primary">
             {% bootstrap_icon "star" %} Submit
         </button>
     </form>
