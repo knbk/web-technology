@@ -24,10 +24,11 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
+    songs = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='song-detail')
 
     class Meta:
         model = Album
-        fields = ('url', 'id', 'title', 'slug', 'artist')
+        fields = ('url', 'id', 'title', 'slug', 'artist', 'songs')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['title'])
