@@ -67,7 +67,7 @@ class LyricSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = LyricRevision
-        fields = ('url', 'id', 'song', 'lyrics', 'created_at', 'editor')
+        fields = ('url', 'id', 'song', 'lyrics', 'previous', 'next', 'created_at', 'editor')
 
     def create(self, validated_data):
         song = validated_data['song']
