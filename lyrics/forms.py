@@ -19,7 +19,7 @@ class AlbumForm(forms.ModelForm):
 
 
 class SongForm(forms.ModelForm):
-    lyrics = forms.Textarea()
+    lyrics = forms.CharField(widget=forms.Textarea())
 
     class Meta:
         model = Song
