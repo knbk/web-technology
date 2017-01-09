@@ -59,7 +59,6 @@ class SongViewSet(mixins.CreateModelMixin,
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-
     def perform_create(self, serializer):
         serializer.save(editor=self.request.user)
 
