@@ -3,8 +3,9 @@ from django.shortcuts import render
 from rest_framework import mixins
 from rest_framework import permissions
 from rest_framework import viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, api_view
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 
 from lyrics.models import Artist, Album, Song, LyricRevision
 from lyrics.serializers import ArtistSerializer, AlbumSerializer, SongSerializer, LyricSerializer
@@ -12,6 +13,17 @@ from lyrics.serializers import ArtistSerializer, AlbumSerializer, SongSerializer
 
 def home(request):
     return render(request, 'home.html')
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'artists': reverse('artist-list', request=request, format=format),
+        'albums': reverse('album-list', request=request, format=format),
+        'songs': reverse('song-list', request=request, format=format),
+        'revisions': reverse('lyricrevision-list', request=request, format=format),
+        'search': reverse('song-search', request=request, format=format),
+    })
 
 
 class ArtistViewSet(mixins.CreateModelMixin,
