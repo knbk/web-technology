@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Results:</h1>
+    <div id="search-results">
+    {% for song in object_list %}
+        <div class="song">
+            <h3><a href="{% url 'lyrics:song-detail' pk=song.pk %}">{{ song.title }} - {{ song.album.title }} - {{ song.album.artist.name }}</a></h3>
+        </div>
+    {% empty %}
+        No results found.
+    {% endfor %}
+    </div>
+{% endblock %}
