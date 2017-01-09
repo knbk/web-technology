@@ -6,10 +6,11 @@ from lyrics.models import Artist, Album, Song, LyricRevision
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     slug = serializers.ReadOnlyField()
+    albums = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='album-detail')
 
     class Meta:
         model = Artist
-        fields = ('url', 'id', 'name', 'slug', 'bio')
+        fields = ('url', 'id', 'name', 'slug', 'bio', 'albums')
 
     def create(self, validated_data):
         validated_data['slug'] = slugify(validated_data['name'])
