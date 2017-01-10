@@ -12,13 +12,16 @@ $(document).ready(function() {
         var json = JSON.stringify(data);
         var url = form.attr('action');
         var method = form.attr('method');
+        var csrf = data['csrfmiddlewaretoken'];
         $.ajax({
             method: method,
             url: url,
             data: json,
             contentType: "application/json",
             dataType: "application/json",
-
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrf);
+            },
             success: function(response) {
                 console.log(response);
                 location.reload();
