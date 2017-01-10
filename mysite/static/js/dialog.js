@@ -7,25 +7,22 @@ $(document).ready(function() {
     });
     $('#submit').on("click", function(e) {
         var form = $('#dialog').find('form');
-        var data = {};
-        form.serializeArray().map(function(x){data[x.name] = x.value;});
-        var json = JSON.stringify(data);
+        var data = form.serialize();
         var url = form.attr('action');
         var method = form.attr('method');
-        var csrf = data['csrfmiddlewaretoken'];
+        var csrf = $("input[name='csrfmiddlewaretoken']").val();
         $.ajax({
             method: method,
             url: url,
-            data: json,
-            contentType: "application/json",
-            dataType: "application/json",
+            data: data,
+            dataType: "json",
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("X-CSRFToken", csrf);
             },
             success: function(response) {
                 console.log(response);
                 location.reload();
-            },
+            }
         });
         e.preventDefault();
     })
