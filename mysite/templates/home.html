@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Welcome to Lyric Saver!</h1>
 <p>
-    Start searching right away:
+    <a href="{% url 'lyrics:artist-list' %}">Browse artists</a> or start searching right away:
 </p>
 <form class="navbar-form" role="search" action="{% url 'lyrics:song-search' %}" method="get">
     <div class="input-group">
