@@ -67,7 +67,9 @@ class SongDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(SongDetailView, self).get_context_data(**kwargs)
-        context['form'] = SongForm(instance=self.object, initial={
+        context['form'] = SongForm(initial={
+            'title': self.object.title,
+            'album': reverse('album-detail', request=self.request, kwargs={'pk': self.object.album_id}),
             'lyrics': self.object.lyrics,
         })
         return context
